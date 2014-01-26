@@ -2,22 +2,19 @@ console.log('running app...');
 
 var server = require('./server'),
 	routes = require('./routes'),
+    controller = require('./controllers');
 	connectRoute = require('connect-route'),
 	port = 8080;
 
+console.log(controller.homeController);
+
 server.app.use(connectRoute(function (router) {
- 	console.log(router);
-    router.get('/', function (req, res, next) {
-        res.end('index');
-    });
+ 	
+    router.get('/', controller.homeController);
 
-    router.get('/home', function (req, res, next) {
-        res.end('home');
-    });
+    router.get('/home', controller.homeController);
 
-    router.get('/home/:id', function (req, res, next) {
-        res.end('home ' + req.params.id);
-    });
+    router.get('/home/:id', controller.homeIdController);
 
     router.post('/home', function (req, res, next) {
         res.end('POST to home');
